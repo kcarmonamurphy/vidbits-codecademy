@@ -3,6 +3,8 @@ const request = require('supertest');
 
 const app = require('../../app');
 
+const Video = require('../../models/video');
+
 const {seedVideoToDatabase, buildVideoObject} = require('../test-utils');
 const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teardown-utils');
 
@@ -24,6 +26,20 @@ describe('Server path: /videos', () => {
         .send(video);
  
       assert.equal(response.status, 201);
+
+    });
+
+    it('creates a new video in database', async () => {
+
+      const video = await buildVideoObject();
+
+      const response = await request(app)
+        .post('/videos')
+        .type('form')
+        .send(video);
+ 
+      const createdVideo = await Video.findOne(video);
+      assert.isNotNull(createdVideo, 'Video was not successfully created in the database');
 
     });
   });
