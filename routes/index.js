@@ -22,7 +22,7 @@ router.post('/videos', async (req, res, next) => {
     res.status(400).render('videos/create', {video: video});
   } else {
     await video.save();
-    res.status(201).send(); //.redirect('/');
+    res.redirect(201, '/');
   }
 });
 
