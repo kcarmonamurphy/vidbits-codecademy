@@ -4,6 +4,8 @@ const expressHandlebars = require('express-handlebars');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
+const index = require('./routes/index');
+
 const app = express();
 
 // View engine setup
@@ -17,6 +19,9 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Use routes/index.js file to manage routes
+app.use('/', index);
+
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
   const err = new Error('Not Found');
@@ -24,7 +29,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// Error handler
+// Error handler`
 app.use((err, req, res, next) => {
   // Set locals, only providing error in development
   res.locals.message = err.message;

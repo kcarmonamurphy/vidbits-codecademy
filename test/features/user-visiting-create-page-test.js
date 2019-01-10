@@ -1,10 +1,12 @@
 const {assert} = require('chai');
 
 describe('user visits the create page', () => {
+
 	describe('filling out a form to submit a video', () => {
+
 		it('should contain title and description fields', () => {
 			// Setup
-			browser.url('/videos/create.html');
+			browser.url('/videos/create');
 
 			const video = {
 				title: 'Sample Title',
@@ -24,11 +26,12 @@ describe('user visits the create page', () => {
 
 		it('should have an action which goes to /videos', () => {
 			// Setup
-			browser.url('/videos/create.html');
+			browser.url('/videos/create');
 
 			// Verification
       		assert.include(browser.getAttribute('#create-input-form', 'action'), '/videos');
       		assert.equal(browser.getAttribute('#create-input-form', 'method'), 'post');
 		});
+
 	});
 });
