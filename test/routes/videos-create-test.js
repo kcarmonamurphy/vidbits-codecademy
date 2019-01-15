@@ -42,5 +42,22 @@ describe('Server path: /videos', () => {
       assert.isNotNull(createdVideo, 'Video was not successfully created in the database');
 
     });
+
+    it('creates a new video in database with correct title and description', async () => {
+
+      const video = await buildVideoObject();
+
+      const response = await request(app)
+        .post('/videos')
+        .type('form')
+        .send(video);
+ 
+      const createdVideo = await Video.findOne(video);
+
+      // assert that title and description were correctly saved
+      assert.equal(createdVideo.title, video.title);
+      assert.equal(createdVideo.description, video.description);
+
+    });
   });
 });

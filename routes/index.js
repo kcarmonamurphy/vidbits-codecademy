@@ -22,7 +22,11 @@ router.post('/videos', async (req, res, next) => {
     res.status(400).render('videos/create', {video: video});
   } else {
     await video.save();
-    res.redirect(201, '/');
+
+    // Refactor this, since it's the same route as '/',
+    // should ideally do a redirect with 201 status code if possible
+    const videos = await Video.find({});
+    res.status(201).render('index', {videos});
   }
 });
 

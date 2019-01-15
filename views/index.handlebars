@@ -1,2 +1,9 @@
-<div id="videos-container"></div>
+<div id="videos-container">
+	{{#each videos as |video|}}
+		<p>Title: {{video.title}}</p>
+		<p>Description: {{video.description}}</p>
+	{{/each}}
+</div>
+
 <a href="/videos/create">Create a new video</a>
+
