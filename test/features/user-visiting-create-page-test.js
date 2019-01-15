@@ -20,8 +20,8 @@ describe('user visits the create page', () => {
         	browser.click('#submit-button');
 
 			// Verification
-      		assert.include(browser.getText('#videos-container'), video.title);
-      		assert.include(browser.getText('#videos-container'), video.description);
+      		assert.include(browser.getText('#show-container'), video.title);
+      		assert.include(browser.getText('#show-container'), video.description);
 		});
 
 		it('should have an action which goes to /videos', () => {
