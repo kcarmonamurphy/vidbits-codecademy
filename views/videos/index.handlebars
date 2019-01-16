@@ -1,7 +1,10 @@
 <div id="videos-container">
 	{{#each videos as |video|}}
-		<p>Title: {{video.title}}</p>
-		<p>Description: {{video.description}}</p>
+		<div class="video-card">
+			<div class="video-title">
+		  		{{video.title}}
+		 	</div>
+		</div>
 	{{/each}}
 </div>
 

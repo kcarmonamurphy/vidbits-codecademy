@@ -25,7 +25,7 @@ describe('Server path: /videos', () => {
         .type('form')
         .send(video);
  
-      assert.equal(response.status, 201);
+      assert.equal(response.status, 201, 'Response status was not 201');
 
     });
 
@@ -55,8 +55,8 @@ describe('Server path: /videos', () => {
       const createdVideo = await Video.findOne(video);
 
       // assert that title and description were correctly saved
-      assert.equal(createdVideo.title, video.title);
-      assert.equal(createdVideo.description, video.description);
+      assert.equal(createdVideo.title, video.title, 'Video title not correctly saved');
+      assert.equal(createdVideo.description, video.description, 'Video description not correctly saved');
 
     });
   });
