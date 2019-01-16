@@ -4,8 +4,8 @@ const {jsdom} = require('jsdom');
 
 // Create and return a sample Video object
 const buildVideoObject = (options = {}) => {
-  const title = options.title || 'My favorite video';
-  const description = options.description || 'Just the best video';
+  const title = ("title" in options) ? options.title : 'My favorite video';
+  const description = ("description" in options) ? options.description : 'Just the best video';
   return {title, description};
 };
 

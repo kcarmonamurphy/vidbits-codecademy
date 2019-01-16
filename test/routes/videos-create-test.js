@@ -59,5 +59,43 @@ describe('Server path: /videos', () => {
       assert.equal(createdVideo.description, video.description, 'Video description not correctly saved');
 
     });
+
+    describe('title is missing on submit', () => {
+
+      it('response status should be 400', async () => {
+        const video = await buildVideoObject({ title: '' });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.equal(response.status, 400, 'Response status should be 403');
+      });
+
+      it('should show validation error message', async () => {
+        const video = await buildVideoObject({ title: '' });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.include(response.text, 'Path &#x60;title&#x60; is required.');
+      });
+
+      it('should keep content entered in description field intact', async () => {
+        const descriptionText = "howdy fine";
+
+        const video = await buildVideoObject({ title: '', description: descriptionText });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.include(response.text, descriptionText);
+      });
+    })
   });
 });

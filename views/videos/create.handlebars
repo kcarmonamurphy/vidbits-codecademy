@@ -2,10 +2,18 @@
 
 	<form id="create-input-form" class="input-form" action="/videos" method="post" >
 		<label class="form-label" for="title">Title</label>
-		<input id="title-input" name="title" maxlength="50" value="{{item.title}}"/>
+		<input id="title-input" name="title" maxlength="50" value="{{video.title}}"/>
+
+		{{#if video.errors.title.message}}
+			<p>{{video.errors.title.message}}</p>
+		{{/if}}
 		           
 		<label class="form-label" for="description">Description</label>
-		<input id="description-input" name="description" value="{{item.description}}"/>
+		<textarea name="description">{{video.description}}</textarea>
+
+		{{#if video.errors.title.description}}
+			<p>{{video.errors.title.description}}</p>
+		{{/if}}
 
 		<button id="submit-button" name="submit-button" type="submit">Save a video</button>
 	</form>
