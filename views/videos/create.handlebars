@@ -7,9 +7,9 @@
 		{{#if video.errors.title.message}}
 			<p>{{video.errors.title.message}}</p>
 		{{/if}}
-		           
+
 		<label class="form-label" for="description">Description</label>
-		<textarea name="description">{{video.description}}</textarea>
+		<textarea id="description-input" name="description">{{video.description}}</textarea>
 
 		{{#if video.errors.title.description}}
 			<p>{{video.errors.title.description}}</p>

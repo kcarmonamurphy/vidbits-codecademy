@@ -15,7 +15,7 @@ describe('user visits the create page', () => {
 
 			//Excercise
 			browser.setValue('input#title-input', video.title);
-        	browser.setValue('input#description-input', video.description);
+        	browser.setValue('textarea#description-input', video.description);
 
         	browser.click('#submit-button');
 
