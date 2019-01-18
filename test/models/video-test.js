@@ -45,4 +45,22 @@ describe('Model: video', () => {
   			assert.equal(video.errors.description.message, 'Path `description` is required.');
   		})
   	});
+
+    describe('#url', () => {
+      it('should be a string', () => {
+        const urlAsNonString = 5;
+
+        const video = new Video({url: urlAsNonString});
+
+        assert.strictEqual(video.url, urlAsNonString.toString());
+      });
+
+      it('is required', () => {
+        const video = new Video({url: ''});
+
+        video.validateSync();
+
+        assert.equal(video.errors.url.message, 'Path `url` is required.');
+      })
+    });
 });
