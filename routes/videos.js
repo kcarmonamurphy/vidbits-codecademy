@@ -22,9 +22,9 @@ router.get('/videos/:id', async (req, res, next) => {
 
 router.post('/videos', async (req, res, next) => {
 
-  const {title, description} = req.body;
+  const {title, description, url} = req.body;
 
-  const video = new Video({title, description});
+  const video = new Video({title, description, url});
 
   video.validateSync();
 

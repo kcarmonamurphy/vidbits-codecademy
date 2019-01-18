@@ -10,12 +10,14 @@ describe('user visits the create page', () => {
 
 			const video = {
 				title: 'Sample Title',
-				description: 'Great Description!'
+				description: 'Great Description!',
+				url: 'https://www.youtube.com/embed/y6Sxv-sUYtM'
 			}
 
 			//Excercise
 			browser.setValue('input#title-input', video.title);
         	browser.setValue('textarea#description-input', video.description);
+        	browser.setValue('input#url-input', video.url);
 
         	browser.click('#submit-button');
 

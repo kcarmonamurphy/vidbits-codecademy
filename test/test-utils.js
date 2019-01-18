@@ -6,7 +6,8 @@ const {jsdom} = require('jsdom');
 const buildVideoObject = (options = {}) => {
   const title = ("title" in options) ? options.title : 'My favorite video';
   const description = ("description" in options) ? options.description : 'Just the best video';
-  return {title, description};
+  const url = ("url" in options) ? options.url : 'https://www.youtube.com/embed/y6Sxv-sUYtM';
+  return {title, description, url};
 };
 
 // Add a sample Video object to mongodb
