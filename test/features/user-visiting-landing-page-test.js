@@ -4,23 +4,13 @@ browser: webdriverio
 
 const {assert} = require('chai');
 
-const {buildVideoObject} = require('../test-utils');
+const {
+	buildVideoObject,
+	createVideoPhantom
+} = require('../test-utils');
 
 const generateRandomUrl = (domain) => {
 	return `http://${domain}/${Math.random()}`;
-}
-
-const createVideoPhantom = (videoObject) => {
-	// Setup
-	browser.url('/videos/create');
-
-	const {title, description, url} = buildVideoObject(videoObject);
-
-	browser.setValue('input#title-input', title);
-	browser.setValue('textarea#description-input', description);
-	browser.setValue('input#url-input', url);
-
-	browser.click('#submit-button');
 }
 
 describe('user visits the landing page with NO existing videos', () => {
@@ -51,19 +41,7 @@ describe('user visits the landing page with NO existing videos', () => {
 describe('user visits the landing page with ONE existing video', () => {
 
 	it('can navigate to a video', () => {
-		browser.url('/videos/create');
-
-		const video = {
-			title: 'Sample Title',
-			description: 'Great Description!',
-			url: 'https://www.youtube.com/embed/y6Sxv-sUYtM'
-		}
-
-		browser.setValue('input#title-input', video.title);
-    	browser.setValue('textarea#description-input', video.description);
-    	browser.setValue('input#url-input', video.url);
-
-    	browser.click('#submit-button');
+		createVideoPhantom();
 
     	//Excercise
     	browser.url('/');

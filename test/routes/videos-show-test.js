@@ -5,12 +5,7 @@ const app = require('../../app');
 
 const Video = require('../../models/video');
 
-const {
-  seedVideoToDatabase,
-  buildVideoObject,
-  parseTextFromHTML,
-  getAttributeFromHTML
-} = require('../test-utils');
+const {seedVideoToDatabase, buildVideoObject, parseTextFromHTML, getAttributeFromHTML} = require('../test-utils');
 const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teardown-utils');
 
 describe('Server path: /videos/:id', () => {

@@ -1,0 +1,30 @@
+<div id="create-container">
+
+	<form id="edit-input-form" class="input-form" action="/updates" method="post" >
+		<label class="form-label" for="title">Title</label>
+		<input id="title-input" name="title" maxlength="50" value="{{video.title}}"/>
+
+		{{#if video.errors.title.message}}
+			<p>{{video.errors.title.message}}</p>
+		{{/if}}
+
+		<label class="form-label" for="description">Description</label>
+		<textarea id="description-input" name="description">{{video.description}}</textarea>
+
+		{{#if video.errors.description.message}}
+			<p>{{video.errors.description.message}}</p>
+		{{/if}}
+
+		<label class="form-label" for="url">URL</label>
+		<input id="url-input" name="url" value="{{video.url}}"/>
+
+		{{#if video.errors.url.message}}
+			<p>{{video.errors.url.message}}</p>
+		{{/if}}
+
+		<iframe class="video-player" src="{{video.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+		<button id="submit-button" name="submit-button" type="submit">Save a video</button>
+	</form>
+
+</div>

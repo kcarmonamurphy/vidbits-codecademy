@@ -36,9 +36,25 @@ const getAttributeFromHTML = (htmlAsString, selector, attribute) => {
   }
 };
 
+const createVideoPhantom = (videoObject) => {
+  // Setup
+  browser.url('/videos/create');
+
+  const {title, description, url} = buildVideoObject(videoObject);
+
+  browser.setValue('input#title-input', title);
+  browser.setValue('textarea#description-input', description);
+  browser.setValue('input#url-input', url);
+
+  browser.click('#submit-button');
+
+  return {title, description, url}
+}
+
 module.exports = {
   buildVideoObject,
   seedVideoToDatabase,
   parseTextFromHTML,
-  getAttributeFromHTML
+  getAttributeFromHTML,
+  createVideoPhantom
 };
