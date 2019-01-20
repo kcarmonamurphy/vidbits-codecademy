@@ -5,7 +5,12 @@ const app = require('../../app');
 
 const Video = require('../../models/video');
 
-const {seedVideoToDatabase, buildVideoObject, parseTextFromHTML} = require('../test-utils');
+const {
+  seedVideoToDatabase,
+  buildVideoObject,
+  parseTextFromHTML,
+  getAttributeFromHTML
+} = require('../test-utils');
 const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teardown-utils');
 
 describe('Server path: /videos/:id', () => {
@@ -34,6 +39,24 @@ describe('Server path: /videos/:id', () => {
 
       assert.include(response.text, video.title);
 
+    });
+
+    it('should render the video in an iframe', async () => {
+       // create video object
+      const video = await buildVideoObject();
+
+      // POST to /videos so video enters database
+      await request(app)
+        .post('/videos')
+        .type('form')
+        .send(video);
+
+      const createdVideo = await Video.findOne(video);
+
+      // get response from GET /videos/1
+      const response = await request(app).get(`/videos/${createdVideo._id}`);
+
+      assert.include(getAttributeFromHTML(response.text, 'iframe', 'src'), video.url);
     });
 
   });

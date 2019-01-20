@@ -96,6 +96,44 @@ describe('Server path: /videos', () => {
  
         assert.include(response.text, descriptionText);
       });
+    });
+
+    describe('url is missing on submit', () => {
+
+      it('response status should be 400', async () => {
+        const video = await buildVideoObject({ url: '' });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.equal(response.status, 400, 'Response status should be 403');
+      });
+
+      it('should show validation error message', async () => {
+        const video = await buildVideoObject({ url: '' });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.include(response.text, 'Path &#x60;url&#x60; is required.');
+      });
+
+      it('should keep content entered in title field intact', async () => {
+        const titleText = "Pharrel Williams - Happy";
+
+        const video = await buildVideoObject({ title: titleText, url: '' });
+
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(video);
+ 
+        assert.include(response.text, titleText);
+      });
     })
   });
 });

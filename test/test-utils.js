@@ -26,8 +26,19 @@ const parseTextFromHTML = (htmlAsString, selector) => {
   }
 };
 
+// extract text from an Element by selector.
+const getAttributeFromHTML = (htmlAsString, selector, attribute) => {
+  const selectedElement = jsdom(htmlAsString).querySelector(selector);
+  if (selectedElement !== null) {
+    return selectedElement.getAttribute(attribute);
+  } else {
+    throw new Error(`No element with selector ${selector} found in HTML string`);
+  }
+};
+
 module.exports = {
   buildVideoObject,
   seedVideoToDatabase,
-  parseTextFromHTML
+  parseTextFromHTML,
+  getAttributeFromHTML
 };

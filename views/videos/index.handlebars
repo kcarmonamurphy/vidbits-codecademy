@@ -2,8 +2,8 @@
 	{{#each videos as |video|}}
 		<div class="video-card">
 			<div class="video-title">
-		  		{{video.title}}
-		  		{{video.description}}
+		  		<a href="videos/{{video._id}}">{{video.title}}</a>
+		  		<p>{{video.description}}</p>
 
 		  		<iframe class="video-player" src="{{video.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		 	</div>
