@@ -16,7 +16,7 @@ describe('Server path: /videos', () => {
 
   describe('POST', () => {
 
-    it('should return 201 status', async () => {
+    it('should return 302 status (redirection)', async () => {
 
       const video = await buildVideoObject();
 
@@ -25,7 +25,7 @@ describe('Server path: /videos', () => {
         .type('form')
         .send(video);
  
-      assert.equal(response.status, 201, 'Response status was not 201');
+      assert.equal(response.status, 302, 'Response status was not 302');
 
     });
 

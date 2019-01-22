@@ -14,13 +14,13 @@ const generateRandomUrl = (domain) => {
 }
 
 describe('user visits the landing page with NO existing videos', () => {
-	describe('#videos-container', () => {
+	describe('.videos-container', () => {
 		it('should be empty', () => {
 			// Setup
 			browser.url('/');
 
 			// Verification
-      		assert.equal(browser.getText('#videos-container'), '');
+      		assert.equal(browser.getText('.videos-container'), '');
 		});
 	});
 
@@ -51,7 +51,7 @@ describe('user visits the landing page with ONE existing video', () => {
     	assert.notEqual(browser.getUrl(), '/')
 	});
 
-	describe('#videos-container dawg', () => {
+	describe('.videos-container dawg', () => {
 
 		it('should not be empty', () => {
 			createVideoPhantom();
@@ -60,7 +60,7 @@ describe('user visits the landing page with ONE existing video', () => {
         	browser.url('/');
 
 			// Verification
-      		assert.isNotEmpty(browser.getText('#videos-container'));
+      		assert.isNotEmpty(browser.getText('.videos-container'));
 		});
 
 		it('should contain an iframe with a src attribute that is not empty', () => {

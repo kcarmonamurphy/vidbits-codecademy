@@ -47,8 +47,11 @@ describe('Server path: /videos/:id/updates', () => {
 
   describe('POST', () => {
 
-    it('updates the record title', async () => {
+    let response;
+    let updatedVideo;
+    let newVideoObject;
 
+    beforeEach(async () => {
       // create video object
       const video = await buildVideoObject();
 
@@ -60,25 +63,31 @@ describe('Server path: /videos/:id/updates', () => {
 
       const createdVideo = await Video.findOne(video);
 
-      const newVideoObject = await buildVideoObject({
+      newVideoObject = await buildVideoObject({
         title: 'new title',
         description: createdVideo.description,
         url: createdVideo.url
       });
 
-
       // get response from GET /videos/1
-      const response = await request(app)
+      response = await request(app)
         .post(`/videos/${createdVideo._id}/updates`)
         .type('form')
         .send(newVideoObject)
 
-      const updatedVideo = await Video.findOne(newVideoObject);
+      updatedVideo = await Video.findById(createdVideo._id);
+    });
 
-            console.log(createdVideo, updatedVideo)
-
-
+    it('updates the record title', async () => {
       assert.equal(updatedVideo.title, newVideoObject.title);
+    });
+
+    it('responds with 302 status', async () => {
+      assert.equal(response.status, 302);
+    });
+
+    it('redirects to the show page', async () => {
+      assert.include(response.headers.location, `/videos/${updatedVideo._id}`);
     });
 
   });

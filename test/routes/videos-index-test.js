@@ -36,7 +36,7 @@ describe('Server path: /', () => {
         .type('form')
         .send(video);
 
-      const selector = '#videos-container';
+      const selector = '.videos-container';
 
       // get response from GET /
       const response = await request(app).get('/videos');

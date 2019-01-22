@@ -1,6 +1,6 @@
-<div id="create-container">
+<div id="edit-page" class="create-container">
 
-	<form id="edit-input-form" class="input-form" action="/updates" method="post" >
+	<form id="edit-input-form" class="input-form" action="/videos/{{video._id}}/updates" method="post" >
 		<label class="form-label" for="title">Title</label>
 		<input id="title-input" name="title" maxlength="50" value="{{video.title}}"/>
 

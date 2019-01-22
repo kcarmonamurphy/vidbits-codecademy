@@ -10,7 +10,7 @@ describe('user updates video', () => {
 
 			const {title, description, url} = createVideoPhantom();
 
-			browser.click('#edit');
+			browser.click('#edit-button');
 
 			const newTitle = 'Madonna - Like a Virgin';
 			const newDescription = 'Great Song by Madonna, the Queen of Pop';
@@ -27,7 +27,7 @@ describe('user updates video', () => {
 		it('does not create an additional video', () => {
 			const {title, description, url} = createVideoPhantom();
 
-			browser.click('#edit');
+			browser.click('#edit-button');
 
 			const newTitle = 'Madonna - Like a Virgin';
 			const newDescription = 'Great Song by Madonna, the Queen of Pop';
