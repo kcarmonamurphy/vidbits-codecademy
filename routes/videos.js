@@ -25,6 +25,11 @@ router.get('/videos/:id/edit', async (req, res, next) => {
   res.render('videos/edit', {video});
 });
 
+router.get('/videos/:id/delete', async (req, res, next) => {
+  const video = await Video.findById(req.params.id);
+  res.render('videos/delete', {video});
+});
+
 router.post('/videos/:id/updates', async (req, res, next) => {
   const video = await Video.findById(req.params.id);
 
@@ -42,6 +47,13 @@ router.post('/videos/:id/updates', async (req, res, next) => {
 
   await video.save();
   return res.status(203).redirect(`/videos/${req.params.id}`);
+});
+
+router.post('/videos/:id/deletions', async (req, res, next) => {
+  const video = await Video.findById(req.params.id);
+
+  await video.remove();
+  return res.status(203).redirect(`/`);
 });
 
 router.post('/videos', async (req, res, next) => {
