@@ -32,6 +32,6 @@ Simple web application which allows for the Creation, Reading, Updating, and Del
 - **TESTS** (Because TDD is awesome): `npm test`
 - **SERVER**: `npm start`
 
-### Gratuitous Image of Mocha Tests
+#### Gratuitous Image of Mocha Tests
 
-![mocha tests](readme-assets/mocha-tests.png)
+<img src="readme-assets/mocha-tests.png" alt="mocha tests" width="300" />
