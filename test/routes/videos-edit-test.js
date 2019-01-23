@@ -48,6 +48,7 @@ describe('Server path: /videos/:id/updates', () => {
   describe('POST', () => {
 
     let response;
+    let createdVideo;
     let updatedVideo;
     let newVideoObject;
 
@@ -61,7 +62,7 @@ describe('Server path: /videos/:id/updates', () => {
         .type('form')
         .send(video);
 
-      const createdVideo = await Video.findOne(video);
+      createdVideo = await Video.findOne(video);
 
       newVideoObject = await buildVideoObject({
         title: 'new title',
@@ -89,6 +90,38 @@ describe('Server path: /videos/:id/updates', () => {
     it('redirects to the show page', async () => {
       assert.include(response.headers.location, `/videos/${updatedVideo._id}`);
     });
+
+    it('doesn\'t allow the save of an invalid record', async () => {
+       newVideoObject = await buildVideoObject({
+        title: 'new title',
+        description: '',
+        url: ''
+      });
+
+      // get response from GET /videos/1
+      response = await request(app)
+        .post(`/videos/${createdVideo._id}/updates`)
+        .type('form')
+        .send(newVideoObject)
+
+      assert.equal(response.status, 400);
+    });
+
+    it('shows edit form when record is invalid', async () => {
+      newVideoObject = await buildVideoObject({
+        title: 'new title',
+        description: '',
+        url: ''
+      });
+
+      // get response from GET /videos/1
+      response = await request(app)
+        .post(`/videos/${createdVideo._id}/updates`)
+        .type('form')
+        .send(newVideoObject)
+
+      assert.include(response.text, 'edit-page');
+    })
 
   });
 
