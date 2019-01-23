@@ -18,13 +18,14 @@ describe('user updates video', () => {
 
 			browser.setValue('input#title-input', newTitle);
 
-  			browser.click('#submit-button');
+			browser.click('#submit-button');
 
 			// Verification
-      		assert.include(browser.getText('.video-title'), newTitle, 'title was not updated');
+  		assert.include(browser.getText('.video-title'), newTitle, 'title was not updated');
 		});
 
 		it('does not create an additional video', () => {
+      
 			const {title, description, url} = createVideoPhantom();
 
 			browser.click('#edit-button');
@@ -35,10 +36,10 @@ describe('user updates video', () => {
 
 			browser.setValue('input#title-input', newTitle);
 
-  			browser.click('#submit-button');
+			browser.click('#submit-button');
 
 			// Verification
-      		assert.notInclude(browser.getText('.video-title'), title, 'new video created by mistake');
+  		assert.notInclude(browser.getText('.video-title'), title, 'new video created by mistake');
 		});
 
 	});

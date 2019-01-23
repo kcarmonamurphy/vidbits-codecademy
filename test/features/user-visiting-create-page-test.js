@@ -1,8 +1,6 @@
 const {assert} = require('chai');
 
-const {
-	createVideoPhantom
-} = require('../test-utils');
+const {createVideoPhantom} = require('../test-utils');
 
 describe('user visits the create page', () => {
 
@@ -13,8 +11,9 @@ describe('user visits the create page', () => {
 			const {title, description} = createVideoPhantom();
 
 			// Verification
-      		assert.include(browser.getText('.contents-container'), title);
-      		assert.include(browser.getText('.contents-container'), description);
+			assert.include(browser.getText('.contents-container'), title);
+			assert.include(browser.getText('.contents-container'), description);
+
 		});
 
 		it('should have an action which goes to /videos', () => {
@@ -22,8 +21,8 @@ describe('user visits the create page', () => {
 			browser.url('/videos/create');
 
 			// Verification
-      		assert.include(browser.getAttribute('#create-input-form', 'action'), '/videos');
-      		assert.equal(browser.getAttribute('#create-input-form', 'method'), 'post');
+			assert.include(browser.getAttribute('#create-input-form', 'action'), '/videos');
+			assert.equal(browser.getAttribute('#create-input-form', 'method'), 'post');
 		});
 
 	});

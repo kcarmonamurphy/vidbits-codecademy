@@ -10,50 +10,50 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teard
 
 describe('Server path: /videos/:id', () => {
 
-  beforeEach(connectDatabaseAndDropData);
+	beforeEach(connectDatabaseAndDropData);
 
-  afterEach(disconnectDatabase);
+	afterEach(disconnectDatabase);
 
-  describe('GET', () => {
+	describe('GET', () => {
 
-    it('should have video title in the response', async () => {
+		it('should have video title in the response', async () => {
 
-      // create video object
-      const video = await buildVideoObject();
+			// create video object
+			const video = await buildVideoObject();
 
-      // POST to /videos so video enters database
-      await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			// POST to /videos so video enters database
+			await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
 
-      const createdVideo = await Video.findOne(video);
+			const createdVideo = await Video.findOne(video);
 
-      // get response from GET /videos/1
-      const response = await request(app).get(`/videos/${createdVideo._id}`);
+			// get response from GET /videos/1
+			const response = await request(app).get(`/videos/${createdVideo._id}`);
 
-      assert.include(response.text, video.title);
+			assert.include(response.text, video.title);
 
-    });
+		});
 
-    it('should render the video in an iframe', async () => {
-       // create video object
-      const video = await buildVideoObject();
+		it('should render the video in an iframe', async () => {
+			 // create video object
+			const video = await buildVideoObject();
 
-      // POST to /videos so video enters database
-      await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			// POST to /videos so video enters database
+			await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
 
-      const createdVideo = await Video.findOne(video);
+			const createdVideo = await Video.findOne(video);
 
-      // get response from GET /videos/1
-      const response = await request(app).get(`/videos/${createdVideo._id}`);
+			// get response from GET /videos/1
+			const response = await request(app).get(`/videos/${createdVideo._id}`);
 
-      assert.include(getAttributeFromHTML(response.text, 'iframe', 'src'), video.url);
-    });
+			assert.include(getAttributeFromHTML(response.text, 'iframe', 'src'), video.url);
+		});
 
-  });
+	});
 
 });

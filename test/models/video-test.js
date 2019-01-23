@@ -7,60 +7,78 @@ describe('Model: video', () => {
 
 	beforeEach(connectDatabaseAndDropData);
 
-  	afterEach(disconnectDatabase);
+	afterEach(disconnectDatabase);
 
 	// Write your tests below:
-  	describe('#title', () => {
-	  	it('should be a string', () => {
-	  		const titleAsNonString = 1;
+	describe('#title', () => {
 
-	  		const video = new Video({title: titleAsNonString});
+		it('should be a string', () => {
 
-	  		assert.strictEqual(video.title, titleAsNonString.toString());
-	  	});
+			const titleAsNonString = 1;
 
-	  	it('is required', () => {
-	  		const video = new Video({title: ''});
+			const video = new Video({title: titleAsNonString});
 
-	  		video.validateSync();
+			assert.strictEqual(video.title, titleAsNonString.toString());
 
-	  		assert.equal(video.errors.title.message, 'Path `title` is required.');
-	  	})
-  	})
+		});
 
-  	describe('#description', () => {
-  		it('should be a string', () => {
-  			const descriptionAsNonString = 5;
+		it('is required', () => {
 
-  			const video = new Video({description: descriptionAsNonString});
+			const video = new Video({title: ''});
 
-  			assert.strictEqual(video.description, descriptionAsNonString.toString());
-  		});
+			video.validateSync();
 
-  		it('is required', () => {
-  			const video = new Video({description: ''});
+			assert.equal(video.errors.title.message, 'Path `title` is required.');
+		
+		});
 
-  			video.validateSync();
+	})
 
-  			assert.equal(video.errors.description.message, 'Path `description` is required.');
-  		})
-  	});
+	describe('#description', () => {
 
-    describe('#url', () => {
-      it('should be a string', () => {
-        const urlAsNonString = 5;
+		it('should be a string', () => {
 
-        const video = new Video({url: urlAsNonString});
+			const descriptionAsNonString = 5;
 
-        assert.strictEqual(video.url, urlAsNonString.toString());
-      });
+			const video = new Video({description: descriptionAsNonString});
 
-      it('is required', () => {
-        const video = new Video({url: ''});
+			assert.strictEqual(video.description, descriptionAsNonString.toString());
+		
+		});
 
-        video.validateSync();
+		it('is required', () => {
 
-        assert.equal(video.errors.url.message, 'Path `url` is required.');
-      })
-    });
+			const video = new Video({description: ''});
+
+			video.validateSync();
+
+			assert.equal(video.errors.description.message, 'Path `description` is required.');
+		
+		});
+
+	});
+
+	describe('#url', () => {
+
+		it('should be a string', () => {
+
+			const urlAsNonString = 5;
+
+			const video = new Video({url: urlAsNonString});
+
+			assert.strictEqual(video.url, urlAsNonString.toString());
+
+		});
+
+		it('is required', () => {
+
+			const video = new Video({url: ''});
+
+			video.validateSync();
+
+			assert.equal(video.errors.url.message, 'Path `url` is required.');
+		
+		});
+
+	});
 });

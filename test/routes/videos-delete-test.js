@@ -10,34 +10,34 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teard
 
 describe('Server path: /videos/:id/deletions', () => {
 
-  beforeEach(connectDatabaseAndDropData);
+	beforeEach(connectDatabaseAndDropData);
 
-  afterEach(disconnectDatabase);
+	afterEach(disconnectDatabase);
 
-  describe('POST', () => {
+	describe('POST', () => {
 
-    it('should remove the record', async () => {
+		it('should remove the record', async () => {
 
-      const video = await buildVideoObject();
+			const video = await buildVideoObject();
 
-      await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
 
-      const createdVideo = await Video.findOne(video);
+			const createdVideo = await Video.findOne(video);
 
-      // get response from GET /videos/1
-      const response = await request(app)
-        .post(`/videos/${createdVideo._id}/deletions`)
-        .type('form')
-        .send()
+			// get response from GET /videos/1
+			const response = await request(app)
+				.post(`/videos/${createdVideo._id}/deletions`)
+				.type('form')
+				.send()
 
-      const updatedVideo = await Video.findById(createdVideo._id);
+			const updatedVideo = await Video.findById(createdVideo._id);
  
-      assert.isNull(updatedVideo);
+			assert.isNull(updatedVideo);
 
-    });
+		});
 
-  });
+	});
 });

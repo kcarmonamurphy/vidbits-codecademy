@@ -10,130 +10,130 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teard
 
 describe('Server path: /videos', () => {
 
-  beforeEach(connectDatabaseAndDropData);
+	beforeEach(connectDatabaseAndDropData);
 
-  afterEach(disconnectDatabase);
+	afterEach(disconnectDatabase);
 
-  describe('POST', () => {
+	describe('POST', () => {
 
-    it('should return 302 status (redirection)', async () => {
+		it('should return 302 status (redirection)', async () => {
 
-      const video = await buildVideoObject();
+			const video = await buildVideoObject();
 
-      const response = await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			const response = await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
  
-      assert.equal(response.status, 302, 'Response status was not 302');
+			assert.equal(response.status, 302, 'Response status was not 302');
 
-    });
+		});
 
-    it('creates a new video in database', async () => {
+		it('creates a new video in database', async () => {
 
-      const video = await buildVideoObject();
+			const video = await buildVideoObject();
 
-      const response = await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			const response = await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
  
-      const createdVideo = await Video.findOne(video);
-      assert.isNotNull(createdVideo, 'Video was not successfully created in the database');
+			const createdVideo = await Video.findOne(video);
+			assert.isNotNull(createdVideo, 'Video was not successfully created in the database');
 
-    });
+		});
 
-    it('creates a new video in database with correct title and description', async () => {
+		it('creates a new video in database with correct title and description', async () => {
 
-      const video = await buildVideoObject();
+			const video = await buildVideoObject();
 
-      const response = await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			const response = await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
  
-      const createdVideo = await Video.findOne(video);
+			const createdVideo = await Video.findOne(video);
 
-      // assert that title and description were correctly saved
-      assert.equal(createdVideo.title, video.title, 'Video title not correctly saved');
-      assert.equal(createdVideo.description, video.description, 'Video description not correctly saved');
+			// assert that title and description were correctly saved
+			assert.equal(createdVideo.title, video.title, 'Video title not correctly saved');
+			assert.equal(createdVideo.description, video.description, 'Video description not correctly saved');
 
-    });
+		});
 
-    describe('title is missing on submit', () => {
+		describe('title is missing on submit', () => {
 
-      it('response status should be 400', async () => {
-        const video = await buildVideoObject({ title: '' });
+			it('response status should be 400', async () => {
+				const video = await buildVideoObject({ title: '' });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.equal(response.status, 400, 'Response status should be 403');
-      });
+				assert.equal(response.status, 400, 'Response status should be 403');
+			});
 
-      it('should show validation error message', async () => {
-        const video = await buildVideoObject({ title: '' });
+			it('should show validation error message', async () => {
+				const video = await buildVideoObject({ title: '' });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.include(response.text, 'Path &#x60;title&#x60; is required.');
-      });
+				assert.include(response.text, 'Path &#x60;title&#x60; is required.');
+			});
 
-      it('should keep content entered in description field intact', async () => {
-        const descriptionText = "howdy fine";
+			it('should keep content entered in description field intact', async () => {
+				const descriptionText = "howdy fine";
 
-        const video = await buildVideoObject({ title: '', description: descriptionText });
+				const video = await buildVideoObject({ title: '', description: descriptionText });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.include(response.text, descriptionText);
-      });
-    });
+				assert.include(response.text, descriptionText);
+			});
+		});
 
-    describe('url is missing on submit', () => {
+		describe('url is missing on submit', () => {
 
-      it('response status should be 400', async () => {
-        const video = await buildVideoObject({ url: '' });
+			it('response status should be 400', async () => {
+				const video = await buildVideoObject({ url: '' });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.equal(response.status, 400, 'Response status should be 403');
-      });
+				assert.equal(response.status, 400, 'Response status should be 403');
+			});
 
-      it('should show validation error message', async () => {
-        const video = await buildVideoObject({ url: '' });
+			it('should show validation error message', async () => {
+				const video = await buildVideoObject({ url: '' });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.include(response.text, 'Path &#x60;url&#x60; is required.');
-      });
+				assert.include(response.text, 'Path &#x60;url&#x60; is required.');
+			});
 
-      it('should keep content entered in title field intact', async () => {
-        const titleText = "Pharrel Williams - Happy";
+			it('should keep content entered in title field intact', async () => {
+				const titleText = "Pharrel Williams - Happy";
 
-        const video = await buildVideoObject({ title: titleText, url: '' });
+				const video = await buildVideoObject({ title: titleText, url: '' });
 
-        const response = await request(app)
-          .post('/videos')
-          .type('form')
-          .send(video);
+				const response = await request(app)
+					.post('/videos')
+					.type('form')
+					.send(video);
  
-        assert.include(response.text, titleText);
-      });
-    })
-  });
+				assert.include(response.text, titleText);
+			});
+		})
+	});
 });

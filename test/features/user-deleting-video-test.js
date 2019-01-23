@@ -21,10 +21,9 @@ describe('user visits the show page', () => {
 			browser.click('#submit-button');
 
 			// should be redirected to index page
-      		assert.notInclude(browser.getText('.videos-container'), title, `video with title ${title} still present`);
-      		assert.notInclude(browser.getText('.videos-container'), description, `video with description ${description} still present`);
+  		assert.notInclude(browser.getText('.videos-container'), title, `video with title ${title} still present`);
+  		assert.notInclude(browser.getText('.videos-container'), description, `video with description ${description} still present`);
 		});
-
-
+    
 	});
 });

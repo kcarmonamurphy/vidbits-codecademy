@@ -10,45 +10,45 @@ const {connectDatabaseAndDropData, disconnectDatabase} = require('../setup-teard
 
 describe('Server path: /', () => {
 
-  beforeEach(connectDatabaseAndDropData);
+	beforeEach(connectDatabaseAndDropData);
 
-  afterEach(disconnectDatabase);
+	afterEach(disconnectDatabase);
 
-  describe('GET', () => {
+	describe('GET', () => {
 
-    it('should redirect to GET /videos', async () => {
+		it('should redirect to GET /videos', async () => {
 
-      // get response from GET /
-      const response = await request(app).get('/');
+			// get response from GET /
+			const response = await request(app).get('/');
 
-      assert.equal(response.header['location'], '/videos');
+			assert.equal(response.header['location'], '/videos');
 
-    });
+		});
 
-    it('should return list of existing videos', async () => {
+		it('should return list of existing videos', async () => {
 
-      // create video object
-      const video = await buildVideoObject();
+			// create video object
+			const video = await buildVideoObject();
 
-      // POST to /videos so video enters database
-      await request(app)
-        .post('/videos')
-        .type('form')
-        .send(video);
+			// POST to /videos so video enters database
+			await request(app)
+				.post('/videos')
+				.type('form')
+				.send(video);
 
-      const selector = '.videos-container';
+			const selector = '.videos-container';
 
-      // get response from GET /
-      const response = await request(app).get('/videos');
+			// get response from GET /
+			const response = await request(app).get('/videos');
 
-      // get response text
-      const text = parseTextFromHTML(response.text, selector);
+			// get response text
+			const text = parseTextFromHTML(response.text, selector);
 
-      // assertion
-      assert.include(text, video.title);
+			// assertion
+			assert.include(text, video.title);
 
-    });
+		});
 
-  });
+	});
 
 });
